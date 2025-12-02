@@ -56,28 +56,7 @@ public class ChiTietDatPhongDAO {
         }
     }
 
-    // Cập nhật chi tiết đặt phòng
-    public boolean update(ChiTietDatPhong ct) {
-        String sql = "UPDATE CHITIETDATPHONG SET SoNgay=?, MaPhong=?, MaPhieuDatPhong=?, GiaDat=? "
-                   + "WHERE MaCTDP=?";
-
-        try (Connection conn = TestConnection.getJDBCConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-
-            ps.setInt(1, ct.getSoNgay());
-            ps.setInt(2, ct.getMaPhong());
-            ps.setInt(3, ct.getMaPhieuDatPhong());
-            ps.setDouble(4, ct.getGiaDat());
-            ps.setInt(5, ct.getMaCTDP());
-
-            return ps.executeUpdate() > 0;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
+    
     // Xóa chi tiết đặt phòng
     public boolean delete(int maCTDP) {
         String sql = "DELETE FROM CHITIETDATPHONG WHERE MaCTDP=?";
@@ -92,32 +71,5 @@ public class ChiTietDatPhongDAO {
             e.printStackTrace();
             return false;
         }
-    }
-
-    // Tìm theo mã chi tiết đặt phòng
-    public ChiTietDatPhong findById(int maCTDP) {
-        String sql = "SELECT * FROM CHITIETDATPHONG WHERE MaCTDP=?";
-
-        try (Connection conn = TestConnection.getJDBCConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-
-            ps.setInt(1, maCTDP);
-            ResultSet rs = ps.executeQuery();
-
-            if (rs.next()) {
-                return new ChiTietDatPhong(
-                        rs.getInt("MaCTDP"),
-                        rs.getInt("SoNgay"),
-                        rs.getInt("MaPhong"),
-                        rs.getInt("MaPhieuDatPhong"),
-                        rs.getDouble("GiaDat")
-                );
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return null;
     }
 }

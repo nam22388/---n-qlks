@@ -79,21 +79,6 @@ public class KhachHangDAO {
         }
     }
 
-    // Xóa khách hàng theo mã
-    public boolean delete(int maKhachHang) {
-        String sql = "DELETE FROM KHACHHANG WHERE MaKhachHang=?";
-
-        try (Connection conn = TestConnection.getJDBCConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-
-            ps.setInt(1, maKhachHang);  // đổi sang int
-            return ps.executeUpdate() > 0;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
 
     // Tìm khách hàng theo mã
     public KhachHang findById(int maKhachHang) {

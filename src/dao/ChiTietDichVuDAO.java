@@ -53,26 +53,6 @@ public class ChiTietDichVuDAO {
         }
     }
 
-    // Cập nhật chi tiết dịch vụ
-    public boolean update(ChiTietDichVu ct) {
-        String sql = "UPDATE CHITIETDICHVU SET SoLuong=?, ThanhTien=? WHERE MaDichVu=? AND MaCTDP=?";
-
-        try (Connection conn = TestConnection.getJDBCConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-
-            ps.setInt(1, ct.getSoLuong());
-            ps.setDouble(2, ct.getThanhTien());
-            ps.setInt(3, ct.getMaDichVu());
-            ps.setInt(4, ct.getMaCTDP());
-
-            return ps.executeUpdate() > 0;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
     // Xóa chi tiết dịch vụ
     public boolean delete(int maDichVu, int maCTDP) {
         String sql = "DELETE FROM CHITIETDICHVU WHERE MaDichVu=? AND MaCTDP=?";

@@ -67,50 +67,6 @@ public class HoaDonDAO {
         }
     }
 
-    // Cập nhật hóa đơn
-    public boolean update(HoaDon hd) {
-        String sql = "UPDATE HOADON SET MaPhieu=?, NgayTao=?, TongTienPhong=?, TongTienDichVu=?, TongCong=?, MaKhachHang=? "
-                   + "WHERE MaHoaDon=?";
-
-        try (Connection conn = TestConnection.getJDBCConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-
-            ps.setInt(1, hd.getMaPhieuDatPhong());
-            if (hd.getNgayTao() != null)
-                ps.setDate(2, Date.valueOf(hd.getNgayTao()));
-            else
-                ps.setNull(2, Types.DATE);
-
-            ps.setDouble(3, hd.getTongTienPhong());
-            ps.setDouble(4, hd.getTongTienDichVu());
-            ps.setDouble(5, hd.getTongCong());
-            ps.setInt(6, hd.getMaKhachHang());
-            ps.setInt(7, hd.getMaHoaDon());
-
-            return ps.executeUpdate() > 0;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    // Xóa hóa đơn
-    public boolean delete(int maHoaDon) {
-        String sql = "DELETE FROM HOADON WHERE MaHoaDon=?";
-
-        try (Connection conn = TestConnection.getJDBCConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-
-            ps.setInt(1, maHoaDon);
-            return ps.executeUpdate() > 0;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
     // Tìm theo mã hóa đơn
     public HoaDon findById(int maHoaDon) {
         String sql = "SELECT * FROM HOADON WHERE MaHoaDon=?";

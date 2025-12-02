@@ -50,25 +50,6 @@ public class DichVuDAO {
         }
     }
 
-    // Cập nhật dịch vụ
-    public boolean update(DichVu dv) {
-        String sql = "UPDATE DICHVU SET TenDichVu=?, GiaDichVu=? WHERE MaDichVu=?";
-
-        try (Connection conn = TestConnection.getJDBCConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-
-            ps.setString(1, dv.getTenDichVu());
-            ps.setDouble(2, dv.getGiaDichVu());
-            ps.setInt(3, dv.getMaDichVu());          // đổi sang int
-
-            return ps.executeUpdate() > 0;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
     // Xóa dịch vụ
     public boolean delete(int maDichVu) {
         String sql = "DELETE FROM DICHVU WHERE MaDichVu=?";

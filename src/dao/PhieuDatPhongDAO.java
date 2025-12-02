@@ -65,49 +65,6 @@ public class PhieuDatPhongDAO {
         }
     }
 
-    // Cập nhật phiếu đặt phòng
-    public boolean update(PhieuDatPhong p) {
-        String sql = "UPDATE PHIEUDATPHONG SET MaKhachHang=?, TrangThai=?, NgayDen=?, NgayDi=? "
-                   + "WHERE MaPhieu=?";
-
-        try (Connection conn = TestConnection.getJDBCConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-
-            ps.setInt(1, p.getMaKhachHang());
-            ps.setString(2, p.getTrangThai());
-
-            if (p.getNgayDen() != null) ps.setDate(3, Date.valueOf(p.getNgayDen()));
-            else ps.setNull(3, Types.DATE);
-
-            if (p.getNgayDi() != null) ps.setDate(4, Date.valueOf(p.getNgayDi()));
-            else ps.setNull(4, Types.DATE);
-
-            ps.setInt(5, p.getMaPhieuDatPhong());
-
-            return ps.executeUpdate() > 0;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    // Xóa phiếu đặt phòng
-    public boolean delete(int maPhieu) {
-        String sql = "DELETE FROM PHIEUDATPHONG WHERE MaPhieu=?";
-
-        try (Connection conn = TestConnection.getJDBCConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-
-            ps.setInt(1, maPhieu);
-            return ps.executeUpdate() > 0;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
     // Tìm theo mã phiếu
     public PhieuDatPhong findById(int maPhieu) {
         String sql = "SELECT * FROM PHIEUDATPHONG WHERE MaPhieu=?";
