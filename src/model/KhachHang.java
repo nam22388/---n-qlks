@@ -9,7 +9,7 @@ package model;
  * @author LEGION
  */
 public class KhachHang {
-    private String maKhachHang;
+    private int maKhachHang;
     private String hoTen;
     private String cccd;
     private String soDienThoai;
@@ -18,7 +18,7 @@ public class KhachHang {
 
     public KhachHang() {}
 
-    public KhachHang(String maKhachHang, String hoTen, String cccd, String soDienThoai, String diaChi, String email) {
+    public KhachHang(int maKhachHang, String hoTen, String cccd, String soDienThoai, String diaChi, String email) {
         this.maKhachHang = maKhachHang;
         this.hoTen = hoTen;
         this.cccd = cccd;
@@ -27,8 +27,8 @@ public class KhachHang {
         this.email = email;
     }
 
-    public String getMaKhachHang() { return maKhachHang; }
-    public void setMaKhachHang(String maKhachHang) { this.maKhachHang = maKhachHang; }
+    public int getMaKhachHang() { return maKhachHang; }
+    public void setMaKhachHang(int maKhachHang) { this.maKhachHang = maKhachHang; }
 
     public String getHoTen() { return hoTen; }
     public void setHoTen(String hoTen) { this.hoTen = hoTen; }

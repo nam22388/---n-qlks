@@ -9,22 +9,22 @@ package model;
  * @author LEGION
  */
 public class Phong {
-    private String maPhong;
+    private int maPhong;
     private String loaiPhong; // đơn, đôi, vip
     private double giaPhong;
     private String tinhTrang; // trống, đã đặt, đang sử dụng
 
     public Phong() {}
 
-    public Phong(String maPhong, String loaiPhong, double giaPhong, String tinhTrang) {
+    public Phong(int maPhong, String loaiPhong, double giaPhong, String tinhTrang) {
         this.maPhong = maPhong;
         this.loaiPhong = loaiPhong;
         this.giaPhong = giaPhong;
         this.tinhTrang = tinhTrang;
     }
 
-    public String getMaPhong() { return maPhong; }
-    public void setMaPhong(String maPhong) { this.maPhong = maPhong; }
+    public int getMaPhong() { return maPhong; }
+    public void setMaPhong(int maPhong) { this.maPhong = maPhong; }
 
     public String getLoaiPhong() { return loaiPhong; }
     public void setLoaiPhong(String loaiPhong) { this.loaiPhong = loaiPhong; }

@@ -9,25 +9,25 @@ package model;
  * @author LEGION
  */
 public class ChiTietDichVu {
-    private String maDichVu;
-    private String maCTDP;
+    private int maDichVu;
+    private int maCTDP;
     private int soLuong;
     private double thanhTien;
 
     public ChiTietDichVu() {}
 
-    public ChiTietDichVu(String maDichVu, String maCTDP, int soLuong, double thanhTien) {
+    public ChiTietDichVu(int maDichVu, int maCTDP, int soLuong, double thanhTien) {
         this.maDichVu = maDichVu;
         this.maCTDP = maCTDP;
         this.soLuong = soLuong;
         this.thanhTien = thanhTien;
     }
 
-    public String getMaDichVu() { return maDichVu; }
-    public void setMaDichVu(String maDichVu) { this.maDichVu = maDichVu; }
+    public int getMaDichVu() { return maDichVu; }
+    public void setMaDichVu(int maDichVu) { this.maDichVu = maDichVu; }
 
-    public String getMaCTDP() { return maCTDP; }
-    public void setMaCTDP(String maCTDP) { this.maCTDP = maCTDP; }
+    public int getMaCTDP() { return maCTDP; }
+    public void setMaCTDP(int maCTDP) { this.maCTDP = maCTDP; }
 
     public int getSoLuong() { return soLuong; }
     public void setSoLuong(int soLuong) { this.soLuong = soLuong; }

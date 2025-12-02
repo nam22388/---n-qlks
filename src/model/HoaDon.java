@@ -10,18 +10,18 @@ package model;
  */
 import java.time.LocalDate;
 public class HoaDon {
-    private String maHoaDon;
-    private String maPhieuDatPhong;
+    private int maHoaDon;
+    private int maPhieuDatPhong;
     private LocalDate ngayTao;
     private double tongTienPhong;
     private double tongTienDichVu;
     private double tongCong;
-    private String maKhachHang;
+    private int maKhachHang;
 
     public HoaDon() {}
 
-    public HoaDon(String maHoaDon, String maPhieuDatPhong, LocalDate ngayTao,
-                  double tongTienPhong, double tongTienDichVu, double tongCong, String maKhachHang) {
+    public HoaDon(int maHoaDon, int maPhieuDatPhong, LocalDate ngayTao,
+                  double tongTienPhong, double tongTienDichVu, double tongCong, int maKhachHang) {
         this.maHoaDon = maHoaDon;
         this.maPhieuDatPhong = maPhieuDatPhong;
         this.ngayTao = ngayTao;
@@ -31,11 +31,11 @@ public class HoaDon {
         this.maKhachHang = maKhachHang;
     }
 
-    public String getMaHoaDon() { return maHoaDon; }
-    public void setMaHoaDon(String maHoaDon) { this.maHoaDon = maHoaDon; }
+    public int getMaHoaDon() { return maHoaDon; }
+    public void setMaHoaDon(int maHoaDon) { this.maHoaDon = maHoaDon; }
 
-    public String getMaPhieuDatPhong() { return maPhieuDatPhong; }
-    public void setMaPhieuDatPhong(String maPhieuDatPhong) { this.maPhieuDatPhong = maPhieuDatPhong; }
+    public int getMaPhieuDatPhong() { return maPhieuDatPhong; }
+    public void setMaPhieuDatPhong(int maPhieuDatPhong) { this.maPhieuDatPhong = maPhieuDatPhong; }
 
     public LocalDate getNgayTao() { return ngayTao; }
     public void setNgayTao(LocalDate ngayTao) { this.ngayTao = ngayTao; }
@@ -49,6 +49,6 @@ public class HoaDon {
     public double getTongCong() { return tongCong; }
     public void setTongCong(double tongCong) { this.tongCong = tongCong; }
 
-    public String getMaKhachHang() { return maKhachHang; }
-    public void setMaKhachHang(String maKhachHang) { this.maKhachHang = maKhachHang; }
+    public int getMaKhachHang() { return maKhachHang; }
+    public void setMaKhachHang(int maKhachHang) { this.maKhachHang = maKhachHang; }
 }

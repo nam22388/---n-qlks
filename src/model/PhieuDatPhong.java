@@ -10,8 +10,8 @@ package model;
  */
 import java.time.LocalDate;
 public class PhieuDatPhong {
-    private String maPhieuDatPhong;
-    private String maKhachHang;
+    private int maPhieuDatPhong;
+    private int maKhachHang;
     private String trangThai; 
     // Đã đặt / Đang thuê / Đã trả / Đã hủy
     private LocalDate ngayDen;
@@ -19,7 +19,7 @@ public class PhieuDatPhong {
 
     public PhieuDatPhong() {}
 
-    public PhieuDatPhong(String maPhieuDatPhong, String maKhachHang, String trangThai, LocalDate ngayDen, LocalDate ngayDi) {
+    public PhieuDatPhong(int maPhieuDatPhong, int maKhachHang, String trangThai, LocalDate ngayDen, LocalDate ngayDi) {
         this.maPhieuDatPhong = maPhieuDatPhong;
         this.maKhachHang = maKhachHang;
         this.trangThai = trangThai;
@@ -27,11 +27,11 @@ public class PhieuDatPhong {
         this.ngayDi = ngayDi;
     }
 
-    public String getMaPhieuDatPhong() { return maPhieuDatPhong; }
-    public void setMaPhieuDatPhong(String maPhieuDatPhong) { this.maPhieuDatPhong = maPhieuDatPhong; }
+    public int getMaPhieuDatPhong() { return maPhieuDatPhong; }
+    public void setMaPhieuDatPhong(int maPhieuDatPhong) { this.maPhieuDatPhong = maPhieuDatPhong; }
 
-    public String getMaKhachHang() { return maKhachHang; }
-    public void setMaKhachHang(String maKhachHang) { this.maKhachHang = maKhachHang; }
+    public int getMaKhachHang() { return maKhachHang; }
+    public void setMaKhachHang(int maKhachHang) { this.maKhachHang = maKhachHang; }
 
     public String getTrangThai() { return trangThai; }
     public void setTrangThai(String trangThai) { this.trangThai = trangThai; }

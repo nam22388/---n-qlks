@@ -9,20 +9,20 @@ package model;
  * @author LEGION
  */
 public class DichVu {
-    private String maDichVu;
+    private int maDichVu;
     private String tenDichVu;
     private double giaDichVu;
 
     public DichVu() {}
 
-    public DichVu(String maDichVu, String tenDichVu, double giaDichVu) {
+    public DichVu(int maDichVu, String tenDichVu, double giaDichVu) {
         this.maDichVu = maDichVu;
         this.tenDichVu = tenDichVu;
         this.giaDichVu = giaDichVu;
     }
 
-    public String getMaDichVu() { return maDichVu; }
-    public void setMaDichVu(String maDichVu) { this.maDichVu = maDichVu; }
+    public int getMaDichVu() { return maDichVu; }
+    public void setMaDichVu(int maDichVu) { this.maDichVu = maDichVu; }
 
     public String getTenDichVu() { return tenDichVu; }
     public void setTenDichVu(String tenDichVu) { this.tenDichVu = tenDichVu; }

@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package database;
+package dao;
 
 /**
  *
@@ -13,7 +13,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.logging.Level;
 import java.util.logging.Logger;    
-public class TestConnection {
+public class DBConnection {
     public static Connection getJDBCConnection() {
 
         String url = "jdbc:mysql://localhost:3306/hotel_management";
@@ -24,9 +24,9 @@ public class TestConnection {
 
             return DriverManager.getConnection(url, user, password);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(TestConnection.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(TestConnection.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return null;

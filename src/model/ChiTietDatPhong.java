@@ -9,15 +9,15 @@ package model;
  * @author LEGION
  */
 public class ChiTietDatPhong {
-    private String maCTDP;
+    private int maCTDP;
     private int soNgay;
-    private String maPhong;
-    private String maPhieuDatPhong;
+    private int maPhong;
+    private int maPhieuDatPhong;
     private double giaDat;
 
     public ChiTietDatPhong() {}
 
-    public ChiTietDatPhong(String maCTDP, int soNgay, String maPhong, String maPhieuDatPhong, double giaDat) {
+    public ChiTietDatPhong(int maCTDP, int soNgay, int maPhong, int maPhieuDatPhong, double giaDat) {
         this.maCTDP = maCTDP;
         this.soNgay = soNgay;
         this.maPhong = maPhong;
@@ -25,17 +25,17 @@ public class ChiTietDatPhong {
         this.giaDat = giaDat;
     }
 
-    public String getMaCTDP() { return maCTDP; }
-    public void setMaCTDP(String maCTDP) { this.maCTDP = maCTDP; }
+    public int getMaCTDP() { return maCTDP; }
+    public void setMaCTDP(int maCTDP) { this.maCTDP = maCTDP; }
 
     public int getSoNgay() { return soNgay; }
     public void setSoNgay(int soNgay) { this.soNgay = soNgay; }
 
-    public String getMaPhong() { return maPhong; }
-    public void setMaPhong(String maPhong) { this.maPhong = maPhong; }
+    public int getMaPhong() { return maPhong; }
+    public void setMaPhong(int maPhong) { this.maPhong = maPhong; }
 
-    public String getMaPhieuDatPhong() { return maPhieuDatPhong; }
-    public void setMaPhieuDatPhong(String maPhieuDatPhong) { this.maPhieuDatPhong = maPhieuDatPhong; }
+    public int getMaPhieuDatPhong() { return maPhieuDatPhong; }
+    public void setMaPhieuDatPhong(int maPhieuDatPhong) { this.maPhieuDatPhong = maPhieuDatPhong; }
 
     public double getGiaDat() { return giaDat; }
     public void setGiaDat(double giaDat) { this.giaDat = giaDat; }
