@@ -13,7 +13,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.logging.Level;
 import java.util.logging.Logger;    
-public class DBConnection {
+public class TestConnection {
     public static Connection getJDBCConnection() {
 
         String url = "jdbc:mysql://localhost:3306/hotel_management";
@@ -24,9 +24,9 @@ public class DBConnection {
 
             return DriverManager.getConnection(url, user, password);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TestConnection.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TestConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return null;
