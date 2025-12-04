@@ -8,6 +8,43 @@ import java.util.List;
 
 public class PhieuDatPhongDAO {
 
+    // Hàm lấy danh sách phiếu kèm thông tin khách hàng
+    public List<Object[]> getAllWithKhachHang() {
+        List<Object[]> list = new ArrayList<>();
+        String sql = """
+            SELECT p.MaPhieuDatPhong, p.MaKhachHang, kh.HoTen, kh.CCCD,
+                   p.TrangThai, p.NgayDen, p.NgayDi
+            FROM PhieuDatPhong p
+            JOIN KhachHang kh ON p.MaKhachHang = kh.MaKhachHang
+            """;
+
+        try (Connection conn = TestConnection.getJDBCConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                Object[] row = new Object[7];
+                row[0] = rs.getInt("MaPhieuDatPhong");
+                row[1] = rs.getInt("MaKhachHang");
+                row[2] = rs.getString("HoTen");
+                row[3] = rs.getString("CCCD");
+                row[4] = rs.getString("TrangThai");
+                
+                Date dDen = rs.getDate("NgayDen");
+                Date dDi  = rs.getDate("NgayDi");
+                row[5] = (dDen != null) ? dDen.toLocalDate() : null;
+                row[6] = (dDi  != null) ? dDi.toLocalDate()  : null;
+
+                list.add(row);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+    
     // Lấy toàn bộ phiếu đặt phòng
     public List<PhieuDatPhong> getAll() {
         List<PhieuDatPhong> list = new ArrayList<>();
@@ -97,6 +134,85 @@ public class PhieuDatPhongDAO {
         return null;
     }
 
+    // Lấy danh sách phiếu theo trạng thái
+    public List<PhieuDatPhong> findByTrangThai(String trangThai) {
+        List<PhieuDatPhong> list = new ArrayList<>();
+        String sql = "SELECT * FROM PHIEUDATPHONG WHERE TrangThai = ?";
+
+        try (Connection conn = TestConnection.getJDBCConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, trangThai);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Date dDen = rs.getDate("NgayDen");
+                Date dDi = rs.getDate("NgayDi");
+
+                LocalDate ngayDen = (dDen != null) ? dDen.toLocalDate() : null;
+                LocalDate ngayDi  = (dDi  != null) ? dDi.toLocalDate()  : null;
+
+                PhieuDatPhong p = new PhieuDatPhong(
+                        rs.getInt("MaPhieu"),
+                        rs.getInt("MaKhachHang"),
+                        rs.getString("TrangThai"),
+                        ngayDen,
+                        ngayDi
+                );
+                list.add(p);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+    
+    // Tìm danh sách phiếu đặt phòng theo CCCD khách hàng
+    public List<PhieuDatPhong> findByCCCD(String cccd) {
+        List<PhieuDatPhong> list = new ArrayList<>();
+
+        String sql = """
+                SELECT p.* 
+                FROM PHIEUDATPHONG p
+                JOIN KHACHHANG kh ON p.MaKhachHang = kh.MaKhachHang
+                WHERE kh.CCCD = ?
+                """;
+
+        try (Connection conn = TestConnection.getJDBCConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, cccd);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                Date dDen = rs.getDate("NgayDen");
+                Date dDi = rs.getDate("NgayDi");
+
+                LocalDate ngayDen = (dDen != null) ? dDen.toLocalDate() : null;
+                LocalDate ngayDi  = (dDi  != null) ? dDi.toLocalDate()  : null;
+
+                PhieuDatPhong p = new PhieuDatPhong(
+                        rs.getInt("MaPhieu"),
+                        rs.getInt("MaKhachHang"),
+                        rs.getString("TrangThai"),
+                        ngayDen,
+                        ngayDi
+                );
+
+                list.add(p);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
+    
     // Cập nhật trạng thái phiếu (Đã đặt / Đang thuê / Đã trả / Đã hủy)
     public boolean updateTrangThai(int maPhieu, String trangThai) {
         String sql = "UPDATE PHIEUDATPHONG SET TrangThai=? WHERE MaPhieu=?";

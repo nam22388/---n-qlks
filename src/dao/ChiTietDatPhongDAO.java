@@ -7,33 +7,6 @@ import java.util.List;
 
 public class ChiTietDatPhongDAO {
 
-    // Lấy toàn bộ chi tiết đặt phòng
-    public List<ChiTietDatPhong> getAll() {
-        List<ChiTietDatPhong> list = new ArrayList<>();
-        String sql = "SELECT * FROM CHITIETDATPHONG";
-
-        try (Connection conn = TestConnection.getJDBCConnection();
-             PreparedStatement ps = conn.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
-
-            while (rs.next()) {
-                ChiTietDatPhong ct = new ChiTietDatPhong(
-                        rs.getInt("MaCTDP"),           // int
-                        rs.getInt("SoNgay"),
-                        rs.getInt("MaPhong"),          // int
-                        rs.getInt("MaPhieuDatPhong"),  // int
-                        rs.getDouble("GiaDat")
-                );
-                list.add(ct);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return list;
-    }
-
     // Thêm chi tiết đặt phòng
     public boolean insert(ChiTietDatPhong ct) {
         String sql = "INSERT INTO CHITIETDATPHONG (MaCTDP, SoNgay, MaPhong, MaPhieuDatPhong, GiaDat) "
@@ -56,6 +29,34 @@ public class ChiTietDatPhongDAO {
         }
     }
 
+    // Lấy danh sách chi tiết theo mã phiếu đặt phòng
+    public List<ChiTietDatPhong> getByMaPhieu(int maPhieu) {
+        List<ChiTietDatPhong> list = new ArrayList<>();
+        String sql = "SELECT * FROM CHITIETDATPHONG WHERE MaPhieuDatPhong = ?";
+
+        try (Connection conn = TestConnection.getJDBCConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, maPhieu);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                ChiTietDatPhong ct = new ChiTietDatPhong(
+                        rs.getInt("MaCTDP"),
+                        rs.getInt("SoNgay"),
+                        rs.getInt("MaPhong"),
+                        rs.getInt("MaPhieuDatPhong"),
+                        rs.getDouble("GiaDat")
+                );
+                list.add(ct);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
     
     // Xóa chi tiết đặt phòng
     public boolean delete(int maCTDP) {

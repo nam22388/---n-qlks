@@ -70,31 +70,32 @@ public class ChiTietDichVuDAO {
             return false;
         }
     }
-
-    // Tìm chi tiết dịch vụ theo khóa kép
-    public ChiTietDichVu findById(int maDichVu, int maCTDP) {
-        String sql = "SELECT * FROM CHITIETDICHVU WHERE MaDichVu=? AND MaCTDP=?";
+    // Lấy danh sách chi tiết dịch vụ theo mã chi tiết đặt phòng
+    public List<ChiTietDichVu> getByMaCTDP(int maCTDP) {
+        List<ChiTietDichVu> list = new ArrayList<>();
+        String sql = "SELECT * FROM CHITIETDICHVU WHERE MaCTDP = ?";
 
         try (Connection conn = TestConnection.getJDBCConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            ps.setInt(1, maDichVu);
-            ps.setInt(2, maCTDP);
+            ps.setInt(1, maCTDP);
             ResultSet rs = ps.executeQuery();
 
-            if (rs.next()) {
-                return new ChiTietDichVu(
+            while (rs.next()) {
+                ChiTietDichVu ct = new ChiTietDichVu(
                         rs.getInt("MaDichVu"),
                         rs.getInt("MaCTDP"),
                         rs.getInt("SoLuong"),
                         rs.getDouble("ThanhTien")
                 );
+                list.add(ct);
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return null;
+        return list;
     }
+
 }

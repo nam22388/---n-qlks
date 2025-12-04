@@ -90,4 +90,31 @@ public class DichVuDAO {
 
         return null;
     }
+    
+    // Tìm danh sách dịch vụ theo tên (có thể nhập một phần tên)
+    public List<DichVu> findByName(String keyword) {
+        List<DichVu> list = new ArrayList<>();
+        String sql = "SELECT * FROM DICHVU WHERE TenDichVu LIKE ?";
+
+        try (Connection conn = TestConnection.getJDBCConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, "%" + keyword + "%");  // tìm chứa từ khóa
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                DichVu dv = new DichVu(
+                        rs.getInt("MaDichVu"),
+                        rs.getString("TenDichVu"),
+                        rs.getDouble("GiaDichVu")
+                );
+                list.add(dv);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
 }

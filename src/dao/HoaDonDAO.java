@@ -39,7 +39,42 @@ public class HoaDonDAO {
 
         return list;
     }
+    
+    // Lấy hóa đơn theo mã phiếu đặt phòng
+    public HoaDon getByMaPhieuDatPhong(int maPhieu) {
+        String sql = "SELECT * FROM HOADON WHERE MaPhieuDatPhong = ?";
+        HoaDon hd = null;
 
+        try (Connection conn = TestConnection.getJDBCConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, maPhieu);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    Date d = rs.getDate("NgayTao");
+                    LocalDate ngayTao = (d != null) ? d.toLocalDate() : null;
+
+                    hd = new HoaDon(
+                            rs.getInt("MaHoaDon"),
+                            rs.getInt("MaPhieuDatPhong"),
+                            ngayTao,
+                            rs.getDouble("TongTienPhong"),
+                            rs.getDouble("TongTienDichVu"),
+                            rs.getDouble("TongCong"),
+                            rs.getInt("MaKhachHang")
+                    );
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return hd;
+    }
+
+    
     // Thêm hóa đơn (không cần MaHoaDon vì tự tăng)
     public boolean insert(HoaDon hd) {
         String sql = "INSERT INTO HOADON (MaPhieu, NgayTao, TongTienPhong, TongTienDichVu, TongCong, MaKhachHang) "
@@ -65,37 +100,5 @@ public class HoaDonDAO {
             e.printStackTrace();
             return false;
         }
-    }
-
-    // Tìm theo mã hóa đơn
-    public HoaDon findById(int maHoaDon) {
-        String sql = "SELECT * FROM HOADON WHERE MaHoaDon=?";
-
-        try (Connection conn = TestConnection.getJDBCConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-
-            ps.setInt(1, maHoaDon);
-            ResultSet rs = ps.executeQuery();
-
-            if (rs.next()) {
-                Date d = rs.getDate("NgayTao");
-                LocalDate ngayTao = (d != null) ? d.toLocalDate() : null;
-
-                return new HoaDon(
-                        rs.getInt("MaHoaDon"),
-                        rs.getInt("MaPhieu"),
-                        ngayTao,
-                        rs.getDouble("TongTienPhong"),
-                        rs.getDouble("TongTienDichVu"),
-                        rs.getDouble("TongCong"),
-                        rs.getInt("MaKhachHang")
-                );
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return null;
     }
 }

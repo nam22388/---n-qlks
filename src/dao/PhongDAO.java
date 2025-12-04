@@ -89,29 +89,56 @@ public class PhongDAO {
     }
 
     // Tìm phòng theo mã
-    public Phong findById(int maPhong) {
-        String sql = "SELECT * FROM PHONG WHERE MaPhong=?";
+public Phong findById(int maPhong) {
+    String sql = "SELECT * FROM PHONG WHERE MaPhong=?";
 
-        try (Connection conn = TestConnection.getJDBCConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+    try (Connection conn = TestConnection.getJDBCConnection();
+         PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            ps.setInt(1, maPhong);
-            ResultSet rs = ps.executeQuery();
+        ps.setInt(1, maPhong);
+        ResultSet rs = ps.executeQuery();
 
-            if (rs.next()) {
-                return new Phong(
-                        rs.getInt("MaPhong"),
-                        rs.getString("LoaiPhong"),
-                        rs.getDouble("GiaPhong"),
-                        rs.getString("TinhTrang")
-                );
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (rs.next()) {
+            return new Phong(
+                    rs.getInt("MaPhong"),
+                    rs.getString("LoaiPhong"),
+                    rs.getDouble("GiaPhong"),
+                    rs.getString("TinhTrang")
+            );
         }
-        return null;
+
+    } catch (Exception e) {
+        e.printStackTrace();
     }
+    return null;
+}
+
+    
+    // Tìm phòng trống
+    public List<Phong> findPhongTrong() {
+    List<Phong> list = new ArrayList<>();
+    String sql = "SELECT * FROM PHONG WHERE TinhTrang = 'Trống'";
+
+    try (Connection conn = TestConnection.getJDBCConnection();
+         PreparedStatement ps = conn.prepareStatement(sql);
+         ResultSet rs = ps.executeQuery()) {
+
+        while (rs.next()) {
+            Phong p = new Phong(
+                    rs.getInt("MaPhong"),
+                    rs.getString("LoaiPhong"),
+                    rs.getDouble("GiaPhong"),
+                    rs.getString("TinhTrang")
+            );
+            list.add(p);
+        }
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return list;
+}
+
 
     // Cập nhật tình trạng phòng
     public boolean updateTinhTrang(int maPhong, String tinhTrang) {
