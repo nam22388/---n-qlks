@@ -13,13 +13,9 @@ public class ChiTietDichVuService {
         dao = new ChiTietDichVuDAO();
     }
 
-    // Lấy tất cả
-    public List<ChiTietDichVu> getAll() {
-        return dao.getAll();
-    }
 
     // Lấy theo mã chi tiết đặt phòng
-    public List<ChiTietDichVu> getByMaCTDP(int maCTDP) {
+    public List<Object[]> getByMaCTDP(int maCTDP) {
         return dao.getByMaCTDP(maCTDP);
     }
 

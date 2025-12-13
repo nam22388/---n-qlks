@@ -17,18 +17,14 @@ public class ChiTietDatPhongService {
         return chiTietDAO.getByMaPhieu(maPhieu);
     }
 
-    // Thêm chi tiết đặt phòng
-    public boolean addChiTiet(ChiTietDatPhong ct) {
-        // logic kiểm tra trước khi thêm
-        if (ct.getSoNgay() <= 0) {
-            System.out.println("Số ngày không hợp lệ!");
-            return false;
-        }
-        if (ct.getGiaDat() < 0) {
-            System.out.println("Giá đặt không hợp lệ!");
-            return false;
-        }
-
+    public boolean addChiTiet(int maPhieuDatPhong, int maPhong) {
+        ChiTietDatPhong ct = new ChiTietDatPhong(
+            0,      // MaCTDP (không dùng)
+            0,      // SoNgay (trigger)
+            maPhong,
+            maPhieuDatPhong,
+            0       // GiaDat (trigger)
+        );
         return chiTietDAO.insert(ct);
     }
 

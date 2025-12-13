@@ -34,7 +34,7 @@ public class PhongDAO {
 
     // Thêm phòng
     public boolean insert(Phong p) {
-        String sql = "INSERT INTO PHONG (MaPhong, LoaiPhong, GiaPhong, TinhTrang) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO PHONG (MaPhong, LoaiPhong, GiaPhong) VALUES (?, ?, ?)";
 
         try (Connection conn = TestConnection.getJDBCConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -42,7 +42,7 @@ public class PhongDAO {
             ps.setInt(1, p.getMaPhong());
             ps.setString(2, p.getLoaiPhong());
             ps.setDouble(3, p.getGiaPhong());
-            ps.setString(4, p.getTinhTrang());
+            
 
             return ps.executeUpdate() > 0;
 
@@ -114,29 +114,29 @@ public Phong findById(int maPhong) {
 }
 
     
-    // Tìm phòng trống
-    public List<Phong> findPhongTrong() {
-    List<Phong> list = new ArrayList<>();
-    String sql = "SELECT * FROM PHONG WHERE TinhTrang = 'Trống'";
+    // Tìm phòng trống theo loại phòng
+    public List<Phong> findPhongTrong(String loai) {
+        List<Phong> list = new ArrayList<>();
+        String sql = "SELECT * FROM PHONG WHERE TinhTrang = 'Trống' AND LoaiPhong = ?";
 
-    try (Connection conn = TestConnection.getJDBCConnection();
-         PreparedStatement ps = conn.prepareStatement(sql);
-         ResultSet rs = ps.executeQuery()) {
+        try (Connection conn = TestConnection.getJDBCConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
 
-        while (rs.next()) {
-            Phong p = new Phong(
+            ps.setString(1, loai);  // gán tham số trước executeQuery
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                list.add(new Phong(
                     rs.getInt("MaPhong"),
                     rs.getString("LoaiPhong"),
                     rs.getDouble("GiaPhong"),
                     rs.getString("TinhTrang")
-            );
-            list.add(p);
+                ));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
-    return list;
+        return list;
 }
 
 

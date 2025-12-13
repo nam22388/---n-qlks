@@ -9,17 +9,13 @@ public class ChiTietDatPhongDAO {
 
     // Thêm chi tiết đặt phòng
     public boolean insert(ChiTietDatPhong ct) {
-        String sql = "INSERT INTO CHITIETDATPHONG (MaCTDP, SoNgay, MaPhong, MaPhieuDatPhong, GiaDat) "
-                   + "VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO ChiTietDatPhong (MaPhieuDatPhong, MaPhong) VALUES (?, ?)";
 
         try (Connection conn = TestConnection.getJDBCConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            ps.setInt(1, ct.getMaCTDP());
-            ps.setInt(2, ct.getSoNgay());
-            ps.setInt(3, ct.getMaPhong());
-            ps.setInt(4, ct.getMaPhieuDatPhong());
-            ps.setDouble(5, ct.getGiaDat());
+            ps.setInt(1, ct.getMaPhieuDatPhong());
+            ps.setInt(2, ct.getMaPhong());
 
             return ps.executeUpdate() > 0;
 
@@ -72,5 +68,24 @@ public class ChiTietDatPhongDAO {
             e.printStackTrace();
             return false;
         }
+    }
+    public List<Integer> getMaPhongByMaPhieu(int maPhieu) {
+        List<Integer> list = new ArrayList<>();
+        String sql = "SELECT MaPhong FROM ChiTietDatPhong WHERE MaPhieuDatPhong=?";
+
+        try (Connection conn = TestConnection.getJDBCConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, maPhieu);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                list.add(rs.getInt("MaPhong"));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 }

@@ -40,11 +40,10 @@ public class PhongService {
         return phongDAO.delete(maPhong);
     }
 
-    // Tìm danh sách phòng trống
-    public List<Phong> getPhongTrong() {
-        return phongDAO.findPhongTrong();   // gọi hàm mới trong DAO
+    public List<Phong> getPhongTrong(String loai) {
+        return phongDAO.findPhongTrong(loai);
     }
-
+    
     // Đổi tình trạng phòng
     public boolean updateTinhTrang(int maPhong, String tinhTrang) {
         return phongDAO.updateTinhTrang(maPhong, tinhTrang);

@@ -18,10 +18,7 @@ public class PhieuDatPhongService {
         return dao.getAllWithKhachHang();
     }
     
-    // Lấy toàn bộ phiếu đặt phòng
-    public List<PhieuDatPhong> getAll() {
-        return dao.getAll();
-    }
+    
 
     // Thêm phiếu đặt phòng (có thể kiểm tra ngày)
     public boolean addPhieu(PhieuDatPhong p) {
@@ -38,37 +35,43 @@ public class PhieuDatPhongService {
     }
 
     // Tìm phiếu theo mã
-    public PhieuDatPhong getById(int maPhieu) {
-        return dao.findById(maPhieu);
+    public PhieuDatPhong getById(int maPhieuDatPhong) {
+        return dao.findById(maPhieuDatPhong);
     }
 
-    // Lấy phiếu theo trạng thái (Đã đặt / Đang thuê / Đã trả / Đã hủy)
-    public List<PhieuDatPhong> getByTrangThai(String trangThai) {
-        return dao.findByTrangThai(trangThai);
-    }
-
-    // Lấy danh sách phiếu theo CCCD khách hàng
-    public List<PhieuDatPhong> getByCCCD(String cccd) {
+    public List<Object[]> getByCCCD(String cccd) {
         return dao.findByCCCD(cccd);
     }
 
+    
+
+    public List<Object[]> searchCCCDAndTrangThai(String cccd, String trangThai) {
+        return dao.findByCCCDAndTrangThai(cccd, trangThai);
+    }
+    
     // Cập nhật trạng thái phiếu
-    public boolean updateTrangThai(int maPhieu, String trangThai) {
-        return dao.updateTrangThai(maPhieu, trangThai);
+    public boolean updateTrangThai(int maPhieuDatPhong, String trangThai) {
+        return dao.updateTrangThai(maPhieuDatPhong, trangThai);
     }
 
     // Hàm phục vụ nút nhận phòng
     public boolean nhanPhong(int maPhieu) {
-        return dao.updateTrangThai(maPhieu, "Đang thuê");
+        return dao.nhanPhong(maPhieu);
     }
 
-    // Hàm phục vụ nút trả phòng
-    public boolean traPhong(int maPhieu) {
-        return dao.updateTrangThai(maPhieu, "Đã trả");
+    // Trả phòng + tạo hóa đơn (giữ tên traPhong để view không thay đổi)
+    public boolean traPhong(int maPhieuDatPhong) {
+        return dao.traPhong(maPhieuDatPhong);
     }
 
     // Hàm hủy phiếu
     public boolean huyPhieu(int maPhieu) {
-        return dao.updateTrangThai(maPhieu, "Đã hủy");
+        return dao.huyPhieu(maPhieu);
+    }
+    
+    public PhieuDatPhong getLatestByCCCD(String cccd) {
+        List<PhieuDatPhong> list = dao.findByCCCDAsObject(cccd);
+        if(list.isEmpty()) return null;
+        return list.get(list.size() - 1); // lấy phiếu mới tạo nhất
     }
 }

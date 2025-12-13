@@ -1,13 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package model;
 
-/**
- *
- * @author LEGION
- */
 import java.time.LocalDate;
 public class HoaDon {
     private int maHoaDon;
@@ -17,7 +9,14 @@ public class HoaDon {
     private double tongTienDichVu;
     private double tongCong;
     private int maKhachHang;
+    private String tenKhachHang;
+    public String getTenKhachHang() {
+        return tenKhachHang;
+    }
 
+    public void setTenKhachHang(String tenKhachHang) {
+        this.tenKhachHang = tenKhachHang;
+    }
     public HoaDon() {}
 
     public HoaDon(int maHoaDon, int maPhieuDatPhong, LocalDate ngayTao,

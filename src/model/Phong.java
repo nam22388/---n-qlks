@@ -34,4 +34,9 @@ public class Phong {
 
     public String getTinhTrang() { return tinhTrang; }
     public void setTinhTrang(String tinhTrang) { this.tinhTrang = tinhTrang; }
+    
+    @Override
+    public String toString() {
+        return maPhong + " - " + loaiPhong;
+}
 }
